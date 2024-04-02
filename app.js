@@ -25,7 +25,7 @@ const updateTodo = (todoId, newTitle) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(newTodo),
+    body: JSON.stringify({ ...newTodo, completed: false }),
   })
     .then(() => fetch(API_URL))
     .then((response) => response.json())
@@ -91,7 +91,7 @@ const addTodo = () => {
   if (!title) return;
 
   const newTodo = {
-    id: date.getTime(),
+    id: date.getTime().toString(),
     title,
     createdAt,
   };
@@ -113,7 +113,6 @@ const addTodo = () => {
 };
 
 const deleteTodo = (todoId) => {
-  console.log("first");
   fetch(API_URL + "/" + todoId, {
     method: "DELETE",
   })
